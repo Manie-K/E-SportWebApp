@@ -1,5 +1,7 @@
 package com.maciejgoralczyk.ESportWebApp.service.api;
 
+import com.maciejgoralczyk.ESportWebApp.dto.PutOrganizationRequestDto;
+import com.maciejgoralczyk.ESportWebApp.dto.PutPlayerRequestDto;
 import com.maciejgoralczyk.ESportWebApp.model.Organization;
 
 import java.util.List;
@@ -10,8 +12,9 @@ public interface OrganizationService {
     Organization find(String name);
     List<Organization> findAll();
     List<Organization> findAll(int foundationYear);
-    void create(Organization organization);
-    void update(Organization organization);
+    Organization create(PutOrganizationRequestDto dto);
+    Organization create(Organization organization);
+    Organization update(UUID id, PutOrganizationRequestDto dto);
     void delete(UUID id);
     void delete(String name);
     void delete(Organization organization);

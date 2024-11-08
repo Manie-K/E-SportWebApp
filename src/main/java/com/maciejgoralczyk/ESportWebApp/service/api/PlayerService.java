@@ -1,5 +1,6 @@
 package com.maciejgoralczyk.ESportWebApp.service.api;
 
+import com.maciejgoralczyk.ESportWebApp.dto.PutPlayerRequestDto;
 import com.maciejgoralczyk.ESportWebApp.model.Organization;
 import com.maciejgoralczyk.ESportWebApp.model.Player;
 
@@ -12,8 +13,9 @@ public interface PlayerService {
     List<Player> findAll();
     List<Player> findAll(int age);
     List<Player> findAll(Organization organization);
-    void create(Player player);
-    void update(Player player);
+    Player create(PutPlayerRequestDto dto);
+    Player create(Player player);
+    Player update(UUID id, PutPlayerRequestDto dto);
     void delete(UUID id);
     void delete(String name);
     void delete(Player player);

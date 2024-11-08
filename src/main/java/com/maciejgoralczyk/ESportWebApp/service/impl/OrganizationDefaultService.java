@@ -1,5 +1,6 @@
 package com.maciejgoralczyk.ESportWebApp.service.impl;
 
+import com.maciejgoralczyk.ESportWebApp.dto.PutOrganizationRequestDto;
 import com.maciejgoralczyk.ESportWebApp.model.Organization;
 import com.maciejgoralczyk.ESportWebApp.repository.api.OrganizationRepository;
 import com.maciejgoralczyk.ESportWebApp.service.api.OrganizationService;
@@ -40,13 +41,28 @@ public class OrganizationDefaultService implements OrganizationService {
     }
 
     @Override
-    public void create(Organization organization) {
-        repository.save(organization);
+    public Organization create(PutOrganizationRequestDto dto) {
+        Organization organization = Organization.builder()
+                .name(dto.getName())
+                .foundationYear(dto.getFoundationYear())
+                .build();
+        return repository.save(organization);
+    }
+    @Override
+    public Organization create(Organization organization) {
+        return repository.save(organization);
     }
 
     @Override
-    public void update(Organization organization) {
-        repository.save(organization);
+    public Organization update(UUID id, PutOrganizationRequestDto dto)
+    {
+        Organization organization = repository.findOrganizationById(id);
+        if (organization != null){
+            organization.setName(dto.getName());
+            organization.setFoundationYear(dto.getFoundationYear());
+            return repository.save(organization);
+        }
+        return null;
     }
 
     @Override
