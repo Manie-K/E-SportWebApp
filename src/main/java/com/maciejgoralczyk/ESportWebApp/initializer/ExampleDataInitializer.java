@@ -2,8 +2,8 @@ package com.maciejgoralczyk.ESportWebApp.initializer;
 
 import com.maciejgoralczyk.ESportWebApp.model.Organization;
 import com.maciejgoralczyk.ESportWebApp.model.Player;
-import com.maciejgoralczyk.ESportWebApp.service.impl.OrganizationService;
-import com.maciejgoralczyk.ESportWebApp.service.impl.PlayerService;
+import com.maciejgoralczyk.ESportWebApp.service.impl.OrganizationDefaultService;
+import com.maciejgoralczyk.ESportWebApp.service.impl.PlayerDefaultService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
@@ -15,11 +15,11 @@ import java.util.*;
 @Order(1)
 public class ExampleDataInitializer
 {
-    private final PlayerService playerService;
-    private final OrganizationService organizationService;
+    private final PlayerDefaultService playerService;
+    private final OrganizationDefaultService organizationService;
 
     @Autowired
-    public ExampleDataInitializer(PlayerService playerService, OrganizationService organizationService) {
+    public ExampleDataInitializer(PlayerDefaultService playerService, OrganizationDefaultService organizationService) {
         this.playerService = playerService;
         this.organizationService = organizationService;
     }
@@ -75,11 +75,11 @@ public class ExampleDataInitializer
 
         for (Organization organization : organizations)
         {
-            organizationService.addOrganization(organization);
+            organizationService.create(organization);
         }
         for(Player player : players)
         {
-            playerService.addPlayer(player);
+            playerService.create(player);
         }
     }
 

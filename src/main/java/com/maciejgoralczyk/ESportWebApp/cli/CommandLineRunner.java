@@ -2,23 +2,22 @@ package com.maciejgoralczyk.ESportWebApp.cli;
 
 import com.maciejgoralczyk.ESportWebApp.model.Organization;
 import com.maciejgoralczyk.ESportWebApp.model.Player;
-import com.maciejgoralczyk.ESportWebApp.service.impl.OrganizationService;
-import com.maciejgoralczyk.ESportWebApp.service.impl.PlayerService;
+import com.maciejgoralczyk.ESportWebApp.service.impl.OrganizationDefaultService;
+import com.maciejgoralczyk.ESportWebApp.service.impl.PlayerDefaultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.UUID;
 
 @Component
 public class CommandLineRunner implements org.springframework.boot.CommandLineRunner
 {
-    private final OrganizationService organizationService;
-    private final PlayerService playerService;
+    private final OrganizationDefaultService organizationService;
+    private final PlayerDefaultService playerService;
 
     @Autowired
-    public CommandLineRunner(OrganizationService organizationService, PlayerService playerService) {
+    public CommandLineRunner(OrganizationDefaultService organizationService, PlayerDefaultService playerService) {
         this.organizationService = organizationService;
         this.playerService = playerService;
     }
@@ -73,16 +72,15 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
         Scanner scanner = new Scanner(System.in);
         String name = scanner.nextLine();
 
-        Player toDelete = playerService.getPlayerByName(name);
+        Player toDelete = playerService.find(name);
         if(toDelete == null)
         {
             System.out.println("Player not found.");
             return;
         }
 
-        UUID id = toDelete.getId();
-        playerService.deletePlayer(id);
-        System.out.println("Player with id = " + id + " deleted.");
+        playerService.delete(toDelete);
+        System.out.println("Player with id = " + toDelete.getId() + " deleted.");
     }
 
     private void addPlayer() {
@@ -93,7 +91,7 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
         int age = scanner.nextInt();
         System.out.println("Enter player organization: ");
         String organizationName = scanner.next();
-        Organization organization = organizationService.getOrganizationByName(organizationName);
+        Organization organization = organizationService.find(organizationName);
 
         if (organization == null)
         {
@@ -107,13 +105,13 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
             .organization(organization)
             .build();
 
-        playerService.addPlayer(player);
+        playerService.create(player);
 
         System.out.println("Player added.");
     }
 
     private void listPlayers() {
-        List<Player> players = playerService.getAllPlayers();
+        List<Player> players = playerService.findAll();
         System.out.println("Players: ");
         for(Player player : players)
         {
@@ -122,7 +120,7 @@ public class CommandLineRunner implements org.springframework.boot.CommandLineRu
     }
 
     private void listOrganizations() {
-        List<Organization> organizations = organizationService.getAllOrganizations();
+        List<Organization> organizations = organizationService.findAll();
         System.out.println("Organizations: ");
         for(Organization organization : organizations)
         {
