@@ -3,7 +3,9 @@ package com.maciejgoralczyk.ESportWebApp.controller;
 import com.maciejgoralczyk.ESportWebApp.dto.GetPlayerResponseDto;
 import com.maciejgoralczyk.ESportWebApp.dto.GetPlayersResponseDto;
 import com.maciejgoralczyk.ESportWebApp.dto.PutPlayerRequestDto;
+import com.maciejgoralczyk.ESportWebApp.model.Organization;
 import com.maciejgoralczyk.ESportWebApp.model.Player;
+import com.maciejgoralczyk.ESportWebApp.service.api.OrganizationService;
 import com.maciejgoralczyk.ESportWebApp.service.api.PlayerService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ import java.util.UUID;
 public class PlayerController {
     @Autowired
     private PlayerService playerService;
+    @Autowired
+    private OrganizationService organizationService;
 
     private GetPlayerResponseDto playerToGetPlayerResponseDto(Player player) {
         if (player == null) {
@@ -52,6 +56,22 @@ public class PlayerController {
                         .toList())
                 .build());
     }
+    @GetMapping("/organization/{organizationID}")
+    public ResponseEntity<GetPlayersResponseDto> getPlayersFromOrganization(@PathVariable UUID organizationID) {
+        Organization organization = organizationService.find(organizationID);
+        if(organization == null)
+        {
+            throw new EntityNotFoundException("Organization not found");
+        }
+        List<Player> players = playerService.findAll(organization);
+
+        return ResponseEntity.ok(GetPlayersResponseDto.builder()
+                .players(players.stream()
+                        .map(this::playerToGetPlayerResponseDto)
+                        .toList())
+                .build());
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<GetPlayerResponseDto> updatePlayer(@PathVariable UUID id, @RequestBody PutPlayerRequestDto dto) {
         Player player = playerService.update(id, dto);
@@ -61,6 +81,6 @@ public class PlayerController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePlayer(@PathVariable UUID id) {
         playerService.delete(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.noContent().build();
     }
 }

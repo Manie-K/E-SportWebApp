@@ -68,6 +68,6 @@ public class OrganizationController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrganization(@PathVariable UUID id) {
         organizationService.delete(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.noContent().build();
     }
 }

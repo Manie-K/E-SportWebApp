@@ -1,0 +1,29 @@
+### Create an Organization
+POST http://localhost:8080/organizations
+Content-Type: application/json
+
+{
+  "name": "Navi",
+  "foundationYear": 2009
+}
+
+### Get an Organization by ID
+GET http://localhost:8080/organizations/
+Content-Type: application/json
+
+### Get All Organizations
+GET http://localhost:8080/organizations
+Content-Type: application/json
+
+### Update an Organization
+PUT http://localhost:8080/organizations/
+Content-Type: application/json
+
+{
+  "name": "NaVi",
+  "foundationYear": 2013
+}
+
+### Delete an Organization
+DELETE http://localhost:8080/organizations/1fcb87d9-14a7-4bd1-b99e-d2b4762fce19
+Content-Type: application/json

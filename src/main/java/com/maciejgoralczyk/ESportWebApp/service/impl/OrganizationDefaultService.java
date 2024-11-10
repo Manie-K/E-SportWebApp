@@ -4,9 +4,11 @@ import com.maciejgoralczyk.ESportWebApp.dto.PutOrganizationRequestDto;
 import com.maciejgoralczyk.ESportWebApp.model.Organization;
 import com.maciejgoralczyk.ESportWebApp.repository.api.OrganizationRepository;
 import com.maciejgoralczyk.ESportWebApp.service.api.OrganizationService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,6 +47,7 @@ public class OrganizationDefaultService implements OrganizationService {
         Organization organization = Organization.builder()
                 .name(dto.getName())
                 .foundationYear(dto.getFoundationYear())
+                .roster(new ArrayList<>())
                 .build();
         return repository.save(organization);
     }
@@ -57,12 +60,14 @@ public class OrganizationDefaultService implements OrganizationService {
     public Organization update(UUID id, PutOrganizationRequestDto dto)
     {
         Organization organization = repository.findOrganizationById(id);
-        if (organization != null){
-            organization.setName(dto.getName());
-            organization.setFoundationYear(dto.getFoundationYear());
-            return repository.save(organization);
+
+        if(organization == null){
+            throw new EntityNotFoundException("Organization not found");
         }
-        return null;
+
+        organization.setName(dto.getName());
+        organization.setFoundationYear(dto.getFoundationYear());
+        return repository.save(organization);
     }
 
     @Override
@@ -73,9 +78,11 @@ public class OrganizationDefaultService implements OrganizationService {
     @Override
     public void delete(String name) {
         Organization org = repository.findOrganizationByName(name);
-        if (org != null){
-            repository.delete(org);
+        if (org == null)
+        {
+            throw new EntityNotFoundException("Organization not found");
         }
+        repository.delete(org);
     }
 
     @Override

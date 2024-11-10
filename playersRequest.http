@@ -1,0 +1,32 @@
+### Create a Player
+POST http://localhost:8080/players
+Content-Type: application/json
+
+{
+  "name": "ManieK",
+  "age": 21,
+  "organizationID": "67c99c22-c713-4642-9aa7-998525582d5f"
+}
+
+### Get a Player by ID
+GET http://localhost:8080/players/
+Content-Type: application/json
+
+### Get All Players
+GET http://localhost:8080/players
+Content-Type: application/json
+
+### Update a Player
+PUT http://localhost:8080/players/
+Content-Type: application/json
+
+{
+  "name": "ManieK_Nowy",
+  "age": 29,
+  "organizationID": ""
+}
+
+### Delete a Player
+DELETE http://localhost:8080/players/
+Content-Type: application/json
+

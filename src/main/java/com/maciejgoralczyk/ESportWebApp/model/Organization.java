@@ -2,6 +2,8 @@ package com.maciejgoralczyk.ESportWebApp.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,7 +25,7 @@ public class Organization{
     private int foundationYear;
 
     @OneToMany(mappedBy = "organization", orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<Player> roster;
+    private List<Player> roster = new ArrayList<>();
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder("[Organization " + id + "]: " + name + " founded in " + foundationYear + "\n");

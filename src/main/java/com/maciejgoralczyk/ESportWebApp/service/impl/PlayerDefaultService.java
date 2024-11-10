@@ -1,12 +1,12 @@
 package com.maciejgoralczyk.ESportWebApp.service.impl;
 
-import com.maciejgoralczyk.ESportWebApp.dto.PutOrganizationRequestDto;
 import com.maciejgoralczyk.ESportWebApp.dto.PutPlayerRequestDto;
 import com.maciejgoralczyk.ESportWebApp.model.Organization;
 import com.maciejgoralczyk.ESportWebApp.model.Player;
 import com.maciejgoralczyk.ESportWebApp.repository.api.OrganizationRepository;
 import com.maciejgoralczyk.ESportWebApp.repository.api.PlayerRepository;
 import com.maciejgoralczyk.ESportWebApp.service.api.PlayerService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,7 +52,14 @@ public class PlayerDefaultService implements PlayerService {
 
     @Override
     public Player create(PutPlayerRequestDto dto) {
+        if(dto.getOrganizationID() == null) {
+            throw new IllegalArgumentException("Dto.OrganizationID cannot be null");
+        }
+
         Organization organization = organizationRepository.findOrganizationById(dto.getOrganizationID());
+        if(organization == null) {
+            throw new EntityNotFoundException("Organization not found");
+        }
 
         Player player = Player.builder()
                 .name(dto.getName())
@@ -70,15 +77,25 @@ public class PlayerDefaultService implements PlayerService {
     @Override
     public Player update(UUID id, PutPlayerRequestDto dto)
     {
-        Organization organization = organizationRepository.findOrganizationById(dto.getOrganizationID());
         Player player = repository.findPlayerById(id);
-        if (player != null) {
-            player.setName(dto.getName());
-            player.setAge(dto.getAge());
-            player.setOrganization(organization);
-            return repository.save(player);
+        if (player == null) {
+            throw new EntityNotFoundException("Player not found");
         }
-        return null;
+
+        if(dto.getOrganizationID() == null) {
+            throw new IllegalArgumentException("Dto.OrganizationID cannot be null");
+        }
+
+        Organization organization = organizationRepository.findOrganizationById(dto.getOrganizationID());
+        if(organization == null) {
+            throw new EntityNotFoundException("Organization not found");
+        }
+
+        player.setName(dto.getName());
+        player.setAge(dto.getAge());
+        player.setOrganization(organization);
+
+        return repository.save(player);
     }
 
     @Override
@@ -89,9 +106,10 @@ public class PlayerDefaultService implements PlayerService {
     @Override
     public void delete(String name) {
         Player player = repository.findPlayerByName(name);
-        if (player != null) {
-            repository.delete(player);
+        if (player == null) {
+            throw new EntityNotFoundException("Player not found");
         }
+        repository.delete(player);
     }
 
     @Override
