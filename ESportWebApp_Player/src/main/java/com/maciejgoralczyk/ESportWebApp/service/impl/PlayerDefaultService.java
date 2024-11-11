@@ -52,11 +52,11 @@ public class PlayerDefaultService implements PlayerService {
 
     @Override
     public Player create(PutPlayerRequestDto dto) {
-        if(dto.getOrganizationID() == null) {
+        if(dto.getOrganizationId() == null) {
             throw new IllegalArgumentException("Dto.OrganizationID cannot be null");
         }
 
-        Organization organization = organizationRepository.findOrganizationById(dto.getOrganizationID());
+        Organization organization = organizationRepository.findOrganizationById(dto.getOrganizationId());
         if(organization == null) {
             throw new EntityNotFoundException("Organization not found");
         }
@@ -82,11 +82,11 @@ public class PlayerDefaultService implements PlayerService {
             throw new EntityNotFoundException("Player not found");
         }
 
-        if(dto.getOrganizationID() == null) {
+        if(dto.getOrganizationId() == null) {
             throw new IllegalArgumentException("Dto.OrganizationID cannot be null");
         }
 
-        Organization organization = organizationRepository.findOrganizationById(dto.getOrganizationID());
+        Organization organization = organizationRepository.findOrganizationById(dto.getOrganizationId());
         if(organization == null) {
             throw new EntityNotFoundException("Organization not found");
         }

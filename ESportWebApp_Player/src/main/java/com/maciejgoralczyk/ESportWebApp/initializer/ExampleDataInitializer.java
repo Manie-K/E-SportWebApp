@@ -32,10 +32,12 @@ public class ExampleDataInitializer
 
 
         Organization vp = Organization.builder()
+                .id(UUID.fromString("00000000-0000-0000-0000-000000000001"))
                 .build();
         organizations.add(vp);
 
         Organization fnatic = Organization.builder()
+                .id(UUID.fromString("00000000-0000-0000-0000-000000000002"))
                 .build();
         organizations.add(fnatic);
 

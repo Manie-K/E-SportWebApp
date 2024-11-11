@@ -5,9 +5,9 @@ import lombok.Data;
 import lombok.Singular;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
-@Builder
 public class GetPlayersResponseDto {
     @Singular
     private List<GetPlayerResponseDto> players;

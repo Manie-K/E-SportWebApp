@@ -26,12 +26,14 @@ public class ExampleDataInitializer
         List<Organization> organizations = new ArrayList<>();
 
         Organization vp = Organization.builder()
+                .id(UUID.fromString("00000000-0000-0000-0000-000000000001"))
                 .name("Virtus.pro")
                 .foundationYear(2003)
                 .build();
         organizations.add(vp);
 
         Organization fnatic = Organization.builder()
+                .id(UUID.fromString("00000000-0000-0000-0000-000000000002"))
                 .name("Fnatic")
                 .foundationYear(2004)
                 .build();

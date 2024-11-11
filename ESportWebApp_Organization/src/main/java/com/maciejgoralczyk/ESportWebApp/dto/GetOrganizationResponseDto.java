@@ -13,5 +13,5 @@ public class GetOrganizationResponseDto {
     private String name;
     private int foundationYear;
 
-    private List<GetPlayerResponseDto> roster; //TODO implements inter-app communication
+    private List<PlayerSimpleDto> roster; //TODO implements inter-app communication
 }
