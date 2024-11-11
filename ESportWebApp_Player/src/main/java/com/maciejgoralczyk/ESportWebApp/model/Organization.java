@@ -18,6 +18,9 @@ public class Organization{
     @Builder.Default
     private UUID id = UUID.randomUUID();
 
+    @Column(name = "name")
+    private String name;
+
     @OneToMany(mappedBy = "organization", orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Player> roster = new ArrayList<>();
 

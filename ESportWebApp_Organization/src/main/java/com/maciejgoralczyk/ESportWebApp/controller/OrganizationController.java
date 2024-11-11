@@ -1,16 +1,14 @@
 package com.maciejgoralczyk.ESportWebApp.controller;
 
 import com.maciejgoralczyk.ESportWebApp.dto.*;
+import com.maciejgoralczyk.ESportWebApp.event.OrganizationEvent;
 import com.maciejgoralczyk.ESportWebApp.model.Organization;
 import com.maciejgoralczyk.ESportWebApp.service.api.OrganizationService;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -20,10 +18,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/organizations")
 public class OrganizationController {
-    @Autowired
-    private OrganizationService organizationService;
-    @Autowired
-    private RestTemplate restTemplate;
+    private final OrganizationService organizationService;
+    private final RestTemplate restTemplate;
+
+    public OrganizationController(OrganizationService organizationService, RestTemplate restTemplate) {
+        this.organizationService = organizationService;
+        this.restTemplate = restTemplate;
+    }
 
     private GetOrganizationResponseDto organizationToGetOrganizationResponseDto(Organization organization) {
         if(organization == null) {
@@ -41,6 +42,10 @@ public class OrganizationController {
         String url = "http://localhost:8081/api/players/organization/" + organization.getId();
         GetPlayersResponseDto playersDto = restTemplate.getForObject(url, GetPlayersResponseDto.class);
 
+        if(playersDto == null || playersDto.getPlayers() == null) {
+            return dto;
+        }
+
         var roster = playersDto.getPlayers().stream()
                 .map(player -> PlayerSimpleDto.builder().name(player.getName()).build())
                 .toList();
@@ -52,6 +57,10 @@ public class OrganizationController {
     @PostMapping
     public ResponseEntity<GetOrganizationResponseDto> createOrganization(@RequestBody PutOrganizationRequestDto dto) {
         Organization organization = organizationService.create(dto);
+        OrganizationEvent event = new OrganizationEvent(organization.getId(), organization.getName());
+        restTemplate.postForEntity("http://localhost:8081/api/events/organization/create", event, null);
+
+
         return ResponseEntity.status(HttpStatus.CREATED).body(organizationToGetOrganizationResponseDto(organization));
     }
 
@@ -80,6 +89,12 @@ public class OrganizationController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrganization(@PathVariable UUID id) {
+        Organization organization = organizationService.find(id);
+        OrganizationEvent event = new OrganizationEvent(organization.getId(), null);
+
+        restTemplate.postForEntity("http://localhost:8081/api/events/organization/delete", event,
+                null);
+
         organizationService.delete(id);
         return ResponseEntity.noContent().build();
     }
