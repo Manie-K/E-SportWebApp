@@ -43,6 +43,7 @@ public class ExampleDataInitializer
 
 
         Player pashaBiceps = Player.builder()
+                .id(UUID.fromString("10000000-0000-0000-0000-000000000000"))
                 .name("pashaBiceps")
                 .age(35)
                 .organization(vp)
@@ -50,6 +51,7 @@ public class ExampleDataInitializer
         players.add(pashaBiceps);
 
         Player byali = Player.builder()
+                .id(UUID.fromString("20000000-0000-0000-0000-000000000000"))
                 .name("byali")
                 .age(28)
                 .organization(vp)
@@ -57,6 +59,7 @@ public class ExampleDataInitializer
         players.add(byali);
 
         Player olofmeister = Player.builder()
+                .id(UUID.fromString("30000000-0000-0000-0000-000000000000"))
                 .name("olofmeister")
                 .age(37)
                 .organization(fnatic)
@@ -64,6 +67,7 @@ public class ExampleDataInitializer
         players.add(olofmeister);
 
         Player jw = Player.builder()
+                .id(UUID.fromString("40000000-0000-0000-0000-000000000000"))
                 .name("jw")
                 .age(30)
                 .organization(fnatic)

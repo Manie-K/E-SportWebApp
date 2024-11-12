@@ -12,6 +12,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.UUID;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class OrganizationController {
                 .build();
 
 
-        String url = "http://localhost:8081/api/players/organization/" + organization.getId();
+        String url = "http://localhost:8083/api/players/organization/" + organization.getId();
         GetPlayersResponseDto playersDto = restTemplate.getForObject(url, GetPlayersResponseDto.class);
 
         if(playersDto == null || playersDto.getPlayers() == null) {
@@ -58,7 +59,7 @@ public class OrganizationController {
     public ResponseEntity<GetOrganizationResponseDto> createOrganization(@RequestBody PutOrganizationRequestDto dto) {
         Organization organization = organizationService.create(dto);
         OrganizationEvent event = new OrganizationEvent(organization.getId(), organization.getName());
-        restTemplate.postForEntity("http://localhost:8081/api/events/organization/create", event, null);
+        restTemplate.postForEntity("http://localhost:8083/api/events/organization/create", event, null);
 
 
         return ResponseEntity.status(HttpStatus.CREATED).body(organizationToGetOrganizationResponseDto(organization));
@@ -92,7 +93,7 @@ public class OrganizationController {
         Organization organization = organizationService.find(id);
         OrganizationEvent event = new OrganizationEvent(organization.getId(), null);
 
-        restTemplate.postForEntity("http://localhost:8081/api/events/organization/delete", event,
+        restTemplate.postForEntity("http://localhost:8083/api/events/organization/delete", event,
                 null);
 
         organizationService.delete(id);

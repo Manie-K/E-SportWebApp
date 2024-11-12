@@ -1,0 +1,29 @@
+### Create an Organization
+POST http://localhost:8081/api/organizations
+Content-Type: application/json
+
+{
+  "name": "Navi",
+  "foundationYear": 2009
+}
+
+### Get an Organization by ID
+GET http://localhost:8081/api/organizations/00000000-0000-0000-0000-000000000001
+Content-Type: application/json
+
+### Get All Organizations
+GET http://localhost:8081/api/organizations
+Content-Type: application/json
+
+### Update an Organization
+PUT http://localhost:8081/api/organizations/00000000-0000-0000-0000-000000000001
+Content-Type: application/json
+
+{
+  "name": "VP_nowe",
+  "foundationYear": 2024
+}
+
+### Delete an Organization
+DELETE http://localhost:8081/api/organizations/00000000-0000-0000-0000-000000000002
+Content-Type: application/json

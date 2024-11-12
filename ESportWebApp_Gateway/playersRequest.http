@@ -1,0 +1,32 @@
+### Create a Player
+POST http://localhost:8081/api/players
+Content-Type: application/json
+
+{
+  "name": "ManieK",
+  "age": 21,
+  "organizationId": "00000000-0000-0000-0000-000000000001"
+}
+
+### Get a Player by ID
+GET http://localhost:8081/api/players/10000000-0000-0000-0000-000000000000
+Content-Type: application/json
+
+### Get All Players
+GET http://localhost:8081/api/players
+Content-Type: application/json
+
+### Update a Player
+PUT http://localhost:8081/api/players/10000000-0000-0000-0000-000000000000
+Content-Type: application/json
+
+{
+  "name": "pasha_Nowy",
+  "age": 29,
+  "organizationId": "00000000-0000-0000-0000-000000000001"
+}
+
+### Delete a Player
+DELETE http://localhost:8081/api/players/10000000-0000-0000-0000-000000000000
+Content-Type: application/json
+
