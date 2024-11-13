@@ -27,6 +27,6 @@ Content-Type: application/json
 }
 
 ### Delete a Player
-DELETE http://localhost:8081/api/players/10000000-0000-0000-0000-000000000000
+DELETE http://localhost:8081/api/players/10000000-0000-0000-2200-000000000000
 Content-Type: application/json
 

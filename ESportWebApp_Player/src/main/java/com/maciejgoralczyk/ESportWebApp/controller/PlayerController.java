@@ -86,6 +86,10 @@ public class PlayerController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePlayer(@PathVariable UUID id) {
+        if(playerService.find(id) == null)
+        {
+            throw new EntityNotFoundException("Player not found");
+        }
         playerService.delete(id);
         return ResponseEntity.noContent().build();
     }

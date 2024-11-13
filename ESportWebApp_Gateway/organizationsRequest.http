@@ -25,5 +25,5 @@ Content-Type: application/json
 }
 
 ### Delete an Organization
-DELETE http://localhost:8081/api/organizations/00000000-0000-0000-0000-000000000002
+DELETE http://localhost:8081/api/organizations/00000000-0990-0000-0000-000000000002
 Content-Type: application/json

@@ -91,6 +91,10 @@ public class OrganizationController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrganization(@PathVariable UUID id) {
         Organization organization = organizationService.find(id);
+        if(organization == null)
+        {
+            throw new EntityNotFoundException("Organization not found");
+        }
         OrganizationEvent event = new OrganizationEvent(organization.getId(), null);
 
         restTemplate.postForEntity("http://localhost:8083/api/events/organization/delete", event,
