@@ -5,8 +5,13 @@
       <h2>{{ organization.name }}</h2>
       <p>{{ organization.id }}</p>
       <button (click)="deleteOrganization(organization)">Delete</button>
+      <button [routerLink]="[organization.id, 'edit']">Edit</button>
+      <button [routerLink]="[organization.id]">View details</button>
     </div>
   </div>
+  <button routerLink="add">
+    Add Category
+  </button>
   <ng-template #noData>
     <p>No organizations available.</p>
   </ng-template>

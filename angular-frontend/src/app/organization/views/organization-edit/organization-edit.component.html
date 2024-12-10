@@ -1,0 +1,28 @@
+<div>
+  <h1>Edit Organization</h1>
+
+  <form #form="ngForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="uuid">Organization id (readonly):</label>
+      <input id="uuid" type="text" [(ngModel)]="uuid" readonly="readonly" name="uuid" value="{{uuid}}"/>
+    </div>
+    <div>
+      <label for="name">Organization name:</label>
+      <input id="name" type="text" [(ngModel)]="org!.name" minlength="2" name="name" value="{{org!.name}}"/>
+    </div>
+
+    <div>
+      <label for="foundationYear">Foundation year:</label>
+      <input id="foundationYear" type="number" [(ngModel)]="org!.foundationYear" name="foundationYear"
+             min="1900" value="{{org!.foundationYear}}"/>
+    </div>
+
+    <button routerLink="/organizations">
+      Go back to organization list.
+    </button>
+
+    <button type="submit">
+      Update organization.
+    </button>
+  </form>
+</div>

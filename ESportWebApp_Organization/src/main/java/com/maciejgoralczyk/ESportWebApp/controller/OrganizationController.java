@@ -48,7 +48,10 @@ public class OrganizationController {
         }
 
         var roster = playersDto.getPlayers().stream()
-                .map(player -> PlayerSimpleDto.builder().name(player.getName()).build())
+                .map(player -> PlayerSimpleDto.builder()
+                        .name(player.getName())
+                        .id(player.getId())
+                        .build())
                 .toList();
 
         dto.setRoster(roster);

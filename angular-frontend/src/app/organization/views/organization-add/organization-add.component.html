@@ -1,0 +1,28 @@
+<div>
+  <h1>Add organization form</h1>
+  <form [formGroup]="organizationForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="name">Organization name:</label>
+      <input id="name" type="text" formControlName="name"/>
+      <div *ngIf="organizationForm.get('name')?.invalid && organizationForm.get('name')?.touched">
+        Name is invalid.
+      </div>
+    </div>
+
+    <div>
+      <label for="foundationYear">Foundation year:</label>
+      <input id="foundationYear" type="number" formControlName="foundationYear"/>
+      <div *ngIf="organizationForm.get('foundationYear')?.invalid &&
+      organizationForm.get('foundationYear')?.touched">
+        Foundation year is invalid.
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="organizationForm.invalid">
+      Create organization
+    </button>
+    <button routerLink="/organizations">
+      Go to organization list
+    </button>
+  </form>
+</div>

@@ -1,0 +1,13 @@
+<div class="organization-details">
+  <h2>Organization id: {{ org?.id }}</h2>
+  <h2>Organization name: {{ org?.name }}</h2>
+  <p><strong>Foundation Year:</strong> {{ org?.foundationYear }}</p>
+
+  <h3>Roster:</h3>
+  <ul>
+    <li *ngFor="let player of org?.roster"><h4>{{ player.name }}</h4>
+      <button (click)="deletePlayer(player.id)">Remove</button>
+    </li>
+  </ul>
+  <button routerLink="/organizations">Go back to organization list</button>
+</div>

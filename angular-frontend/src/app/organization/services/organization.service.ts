@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {map, Observable} from 'rxjs';
 import {Organizations} from '../models/organizations.model';
 import {Organization} from '../models/organization.model';
+import {PutOrganizationDtoModel} from '../models/put-organization-dto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,15 +16,30 @@ export class OrganizationService {
     return this.http.get<Organizations>('/api/organizations');
   }
 
-  deleteOrganization(id: number): void{
+  getOrganization(id: string): Observable<Organization> {
     const url = `/api/organizations/${id}`;
-    this.http.delete(url).subscribe({
+    return this.http.get<Organization>(url);
+  }
+
+  addOrganization(organizationDto: PutOrganizationDtoModel): void {
+    console.log(organizationDto);
+    this.http.post('/api/organizations', organizationDto).subscribe({
       next: (response) => {
-        console.log('Organization deleted successfully', response);
+        console.log('Organization added successfully', response);
       },
       error: (err) => {
-        console.error('Error deleting organization', err);
+        console.error('Error adding organization', err);
       }
     });
+  }
+
+  updateOrganization(id: string, organizationDto: PutOrganizationDtoModel): Observable<void> {
+    const url = `/api/organizations/${id}`;
+    return this.http.put<void>(url, organizationDto);
+  }
+
+  deleteOrganization(id: number): Observable<void>{
+    const url = `/api/organizations/${id}`;
+    return this.http.delete<void>(url);
   }
 }
