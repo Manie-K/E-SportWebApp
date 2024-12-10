@@ -5,6 +5,7 @@ import {OrganizationEditComponent} from './organization/views/organization-edit/
 import {OrganizationDetailComponent} from './organization/views/organization-detail/organization-detail.component';
 import {PlayerAddComponent} from './player/views/player-add/player-add.component';
 import {PlayerEditComponent} from './player/views/player-edit/player-edit.component';
+import {PlayerDetailComponent} from './player/views/player-detail/player-detail.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/organizations', pathMatch: 'full' },
@@ -13,5 +14,6 @@ export const routes: Routes = [
   {path: 'organizations/:orgId/edit', component: OrganizationEditComponent},
   {path: 'organizations/:orgId', component: OrganizationDetailComponent},
   {path: 'organizations/:orgId/players/add', component: PlayerAddComponent},
+  {path: 'organizations/:orgId/players/:playerId', component: PlayerDetailComponent},
   {path: 'organizations/:orgId/players/:playerId/edit', component: PlayerEditComponent}
 ]

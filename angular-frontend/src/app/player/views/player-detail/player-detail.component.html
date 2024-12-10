@@ -1,0 +1,9 @@
+<div>
+  <h2>Player Details</h2>
+  <p><strong>ID:</strong> {{ player?.id }}</p>
+  <p><strong>Name:</strong> {{ player?.name }}</p>
+  <p><strong>Age:</strong> {{ player?.age }}</p>
+  <p><strong>Organization:</strong> {{ organizationName }}</p>
+
+  <button [routerLink]="['/organizations', organizationId]">Go back to organization details.</button>
+</div>

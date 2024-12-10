@@ -8,6 +8,7 @@
     <li *ngFor="let player of org?.roster"><h4>{{ player.name }}</h4>
       <button (click)="deletePlayer(player.id)">Remove</button>
       <button [routerLink]="['players',player.id, 'edit']">Edit</button>
+      <button [routerLink]="['players',player.id]">View details</button>
     </li>
   </ul>
   <button routerLink="players/add">Add player</button>
