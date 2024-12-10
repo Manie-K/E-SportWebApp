@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {PutOrganizationDtoModel} from '../../models/put-organization-dto.model';
+import {PutOrganizationDto} from '../../models/put-organization.dto';
 import {OrganizationService} from '../../services/organization.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {Organization} from '../../models/organization.model';
@@ -29,7 +29,7 @@ export class OrganizationDetailComponent implements OnInit{
   }
   loadOrganization(): void {
     this.route.params.subscribe(params => {
-      this.uuid = params['id'];
+      this.uuid = params['orgId'];
 
       this.organizationService.getOrganization(this.uuid!).subscribe({
         next: (response) => {

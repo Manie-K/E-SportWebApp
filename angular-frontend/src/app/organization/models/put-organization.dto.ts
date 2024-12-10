@@ -1,4 +1,4 @@
-﻿export interface PutOrganizationDtoModel
+﻿export interface PutOrganizationDto
 {
   name: string;
   foundationYear: number;

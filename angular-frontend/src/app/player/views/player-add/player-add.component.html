@@ -1,0 +1,32 @@
+<div>
+  <h1>Add player form</h1>
+  <form [formGroup]="playerForm!" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="name">Player name:</label>
+      <input id="name" type="text" formControlName="name"/>
+      <div *ngIf="playerForm!.get('name')?.invalid && playerForm!.get('name')?.touched">
+        Name is invalid.
+      </div>
+    </div>
+
+    <div>
+      <label for="age">Player age:</label>
+      <input id="age" type="number" formControlName="age"/>
+      <div *ngIf="playerForm!.get('age')?.invalid &&
+      playerForm!.get('age')?.touched">
+        Age is invalid.
+      </div>
+    </div>
+    <div>
+      <label for="organizationId">Organization id:</label>
+      <input id="organizationId" type="text" formControlName="organizationId" readonly="readonly"/>
+    </div>
+
+    <button type="submit" [disabled]="playerForm!.invalid">
+      Create player
+    </button>
+    <button [routerLink]="['/organizations', orgId]">
+      Go back to organization details
+    </button>
+  </form>
+</div>

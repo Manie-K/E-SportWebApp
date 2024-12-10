@@ -4,7 +4,7 @@ import {OrganizationListComponent} from './organization/views/organization-list/
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, OrganizationListComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {PutOrganizationDtoModel} from '../../models/put-organization-dto.model';
+import {PutOrganizationDto} from '../../models/put-organization.dto';
 import {OrganizationService} from '../../services/organization.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {FormsModule} from '@angular/forms';
@@ -16,14 +16,14 @@ import {NgIf} from '@angular/common';
 })
 export class OrganizationEditComponent implements OnInit {
   uuid: string | undefined;
-  org: PutOrganizationDtoModel | undefined;
+  org: PutOrganizationDto | undefined;
 
   constructor(private organizationService: OrganizationService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.uuid = params['id'];
+      this.uuid = params['orgId'];
 
       this.organizationService.getOrganization(this.uuid!).subscribe({
         next: (response) => {

@@ -1,0 +1,32 @@
+<div>
+  <h1>Edit Player</h1>
+
+  <form #form="ngForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="id">Player id (readonly):</label>
+      <input id="id" type="text" [(ngModel)]="playerId" readonly="readonly" name="id" value="{{playerId}}"/>
+    </div>
+    <div>
+      <label for="name">Player name:</label>
+      <input id="name" type="text" [(ngModel)]="player!.name" minlength="2" name="name" value="{{player?.name}}"/>
+    </div>
+
+    <div>
+      <label for="age">Player age:</label>
+      <input id="age" type="number" [(ngModel)]="player!.age" name="age"
+             min="1900" value="{{player!.age}}"/>
+    </div>
+    <div>
+      <label for="orgId">Organization id (readonly):</label>
+      <input id="orgId" type="text" [(ngModel)]="organizationId" readonly="readonly" name="orgId"
+             value="{{organizationId}}"/>
+    </div>
+    <button [routerLink]="['/organizations', organizationId]">
+      Go back to organization details.
+    </button>
+
+    <button type="submit">
+      Update player.
+    </button>
+  </form>
+</div>
