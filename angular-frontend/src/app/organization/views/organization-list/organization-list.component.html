@@ -1,0 +1,13 @@
+<div>
+  <h1>Organizations</h1>
+  <div *ngIf="orgs.organizations.length > 0; else noData">
+    <div *ngFor="let organization of orgs.organizations">
+      <h2>{{ organization.name }}</h2>
+      <p>{{ organization.id }}</p>
+      <button (click)="deleteOrganization(organization)">Delete</button>
+    </div>
+  </div>
+  <ng-template #noData>
+    <p>No organizations available.</p>
+  </ng-template>
+</div>
