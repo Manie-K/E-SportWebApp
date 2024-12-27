@@ -22,7 +22,7 @@
       <input id="organizationId" type="text" formControlName="organizationId" readonly="readonly"/>
     </div>
 
-    <button type="submit" [disabled]="playerForm!.invalid" [routerLink]="['/organizations', orgId]">
+    <button type="submit" [disabled]="playerForm!.invalid">
       Create player
     </button>
     <button [routerLink]="['/organizations', orgId]">

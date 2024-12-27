@@ -35,6 +35,7 @@ export class OrganizationService {
 
   updateOrganization(id: string, organizationDto: PutOrganizationDto): Observable<void> {
     const url = `/api/organizations/${id}`;
+    console.log(id, organizationDto)
     return this.http.put<void>(url, organizationDto);
   }
 
