@@ -17,13 +17,9 @@ public class GatewayConfiguration{
     ) {
         return builder.routes()
                 .route("player-service", r -> r
-                        .host(gatewayUrl)
-                        .and()
                         .path("/api/players/**", "/api/events/**")
                         .uri(playersUrl))
                 .route("organization-service", r -> r
-                        .host(gatewayUrl)
-                        .and()
                         .path("/api/organizations/**")
                         .uri(organizationsUrl))
                 .build();

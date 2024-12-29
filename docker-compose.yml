@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  player-service:
+    build:
+      context: ./ESportWebApp_Player
+      dockerfile: Dockerfile
+    restart: always
+
+  organization-service:
+    build:
+      context: ./ESportWebApp_Organization
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - PLAYER_SERVICE_URL=http://player-service:8080
+
+  gateway:
+    build:
+      context: ./ESportWebApp_Gateway
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      - ESPORT_GATEWAY_HOST=8081
+      - ESPORT_PLAYER_SERVICE_URL=http://player-service:8080
+      - ESPORT_ORGANIZATION_SERVICE_URL=http://organization-service:8080
+    depends_on:
+      - player-service
+      - organization-service
