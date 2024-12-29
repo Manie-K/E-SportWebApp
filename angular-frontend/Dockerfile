@@ -2,15 +2,15 @@
 
 LABEL org.opencontainers.image.title="esport-webapp"
 LABEL org.opencontainers.image.authors="Maciej Góralczyk"
-LABEL org.opencontainers.image.version="1.0.0-SNAPSHOT"
+LABEL org.opencontainers.image.version="0.0.1-SNAPSHOT"
 LABEL org.opencontainers.image.description="Simple webapp about esport organizations and players, angular frontend module."
 
 LABEL build_version=""
 LABEL maintainer=""
 
-ENV VERSION="1.0.0-SNAPSHOT"
+ENV VERSION="0.0.1-SNAPSHOT"
 
-ENV API_URL=http://host.docker.internal:8081/api
+ENV API_URL=http://localhost:8080/api
 
 EXPOSE 80
 

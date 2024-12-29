@@ -10,14 +10,14 @@ LABEL maintainer=""
 
 ENV VERSION="0.0.1-SNAPSHOT"
 
-ENV SERVER_PORT=8081
+ENV SERVER_PORT=8080
 
-ENV ESPORT_GATEWAY_HOST=localhost:8081
+ENV ESPORT_GATEWAY_HOST=localhost:8080
 ENV ESPORT_PLAYER_SERVICE_URL=http://localhost:8080
 ENV ESPORT_ORGANIZATION_SERVICE_URL=http://localhost:8080
 
 
-EXPOSE 8081
+EXPOSE 8080
 
 COPY target/ESportWebApp_Gateway-${VERSION}.jar /opt/esport-webapp-gateway/esport-webapp-gateway.jar
 
