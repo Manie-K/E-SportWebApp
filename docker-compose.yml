@@ -1,10 +1,32 @@
 version: '3.8'
 services:
+  player-db:
+    image: postgres:16.1
+    restart: always
+    environment:
+      POSTGRES_DB: player_db
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+
+  organization-db:
+    image: postgres:16.1
+    restart: always
+    environment:
+      POSTGRES_DB: organization_db
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+
   player-service:
     build:
       context: ./ESportWebApp_Player
       dockerfile: Dockerfile
     restart: always
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://player-db:5432/player_db"
+      SPRING_DATASOURCE_DRIVERCLASSNAME: "org.postgresql.Driver"
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "root"
+      SPRING_JPA_DATABASE_PLATFORM: "org.hibernate.dialect.PostgreSQLDialect"
 
   organization-service:
     build:
@@ -12,7 +34,13 @@ services:
       dockerfile: Dockerfile
     restart: always
     environment:
-      - PLAYER_SERVICE_URL=http://player-service:8080
+      PLAYER_SERVICE_URL: http://player-service:8080
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://organization-db:5432/organization_db"
+      SPRING_DATASOURCE_DRIVERCLASSNAME: "org.postgresql.Driver"
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "root"
+      SPRING_JPA_DATABASE_PLATFORM: "org.hibernate.dialect.PostgreSQLDialect"
+
 
   gateway:
     build:
@@ -28,6 +56,7 @@ services:
     depends_on:
       - player-service
       - organization-service
+      
   frontend-ng:
     build: 
       context: ./angular-frontend
