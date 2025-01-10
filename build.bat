@@ -11,4 +11,6 @@ cd ..
 cd angular-frontend
 call ng build --configuration production
 cd ..
-call docker-compose up
+cd ESportWebApp_EurekaDiscovery
+call mvn clean package spring-boot:repackage -DskipTests
+cd ..

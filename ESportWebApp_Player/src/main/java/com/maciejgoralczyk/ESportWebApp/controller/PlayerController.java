@@ -8,6 +8,7 @@ import com.maciejgoralczyk.ESportWebApp.model.Player;
 import com.maciejgoralczyk.ESportWebApp.service.api.OrganizationService;
 import com.maciejgoralczyk.ESportWebApp.service.api.PlayerService;
 import jakarta.persistence.EntityNotFoundException;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +17,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-
 @RestController
 @RequestMapping("/api/players")
 public class PlayerController {
+    private static final org.apache.commons.logging.Log log = LogFactory.getLog(PlayerController.class);
     @Autowired
     private PlayerService playerService;
     @Autowired
@@ -64,6 +65,7 @@ public class PlayerController {
     }
     @GetMapping("/organization/{organizationID}")
     public ResponseEntity<GetPlayersResponseDto> getPlayersFromOrganization(@PathVariable UUID organizationID) {
+        log.debug("getPlayersFromOrganization");
         Organization organization = organizationService.find(organizationID);
         if(organization == null)
         {

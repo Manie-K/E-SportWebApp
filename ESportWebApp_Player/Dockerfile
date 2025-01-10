@@ -23,6 +23,9 @@ ENV SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
 ENV SPRING_H2_CONSOLE_enabled=true
 
+ENV EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://localhost:8086/eureka
+ENV EUREKA_INSTANCE_INSTANCE_ID=1
+
 EXPOSE 8080
 
 COPY target/ESportWebApp_Player-${VERSION}.jar /opt/esport-webapp-player/esport-webapp-player.jar

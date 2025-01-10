@@ -1,5 +1,13 @@
 version: '3.8'
 services:
+  eureka-service:
+    build:
+      context: ./ESportWebApp_EurekaDiscovery
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8090:8080"
+
   player-db:
     image: postgres:16.1
     restart: always
@@ -16,30 +24,76 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
 
-  player-service:
+  player-service-1:
     build:
       context: ./ESportWebApp_Player
       dockerfile: Dockerfile
     restart: always
     environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-service:8080/eureka"
+      EUREKA_INSTANCE_INSTANCE_ID: "1"
       SPRING_DATASOURCE_URL: "jdbc:postgresql://player-db:5432/player_db"
       SPRING_DATASOURCE_DRIVERCLASSNAME: "org.postgresql.Driver"
       SPRING_DATASOURCE_USERNAME: "root"
       SPRING_DATASOURCE_PASSWORD: "root"
       SPRING_JPA_DATABASE_PLATFORM: "org.hibernate.dialect.PostgreSQLDialect"
+    depends_on:
+      - eureka-service
+      - player-db
 
-  organization-service:
+  player-service-2:
+    build:
+      context: ./ESportWebApp_Player
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-service:8080/eureka"
+      EUREKA_INSTANCE_INSTANCE_ID: "2"
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://player-db:5432/player_db"
+      SPRING_DATASOURCE_DRIVERCLASSNAME: "org.postgresql.Driver"
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "root"
+      SPRING_JPA_DATABASE_PLATFORM: "org.hibernate.dialect.PostgreSQLDialect"
+    depends_on:
+      - eureka-service
+      - player-db
+
+  organization-service-1:
     build:
       context: ./ESportWebApp_Organization
       dockerfile: Dockerfile
     restart: always
     environment:
-      PLAYER_SERVICE_URL: http://player-service:8080
+      PLAYER_SERVICE_APPNAME: "esport-players-service"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-service:8080/eureka"
+      EUREKA_INSTANCE_INSTANCE_ID: "1"
       SPRING_DATASOURCE_URL: "jdbc:postgresql://organization-db:5432/organization_db"
       SPRING_DATASOURCE_DRIVERCLASSNAME: "org.postgresql.Driver"
       SPRING_DATASOURCE_USERNAME: "root"
       SPRING_DATASOURCE_PASSWORD: "root"
       SPRING_JPA_DATABASE_PLATFORM: "org.hibernate.dialect.PostgreSQLDialect"
+    depends_on:
+      - eureka-service
+      - organization-db
+
+
+  organization-service-2:
+    build:
+      context: ./ESportWebApp_Organization
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      PLAYER_SERVICE_APPNAME: "esport-players-service"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-service:8080/eureka"
+      EUREKA_INSTANCE_INSTANCE_ID: "2"
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://organization-db:5432/organization_db"
+      SPRING_DATASOURCE_DRIVERCLASSNAME: "org.postgresql.Driver"
+      SPRING_DATASOURCE_USERNAME: "root"
+      SPRING_DATASOURCE_PASSWORD: "root"
+      SPRING_JPA_DATABASE_PLATFORM: "org.hibernate.dialect.PostgreSQLDialect"
+    depends_on:
+      - eureka-service
+      - organization-db
 
 
   gateway:
@@ -50,12 +104,17 @@ services:
     ports:
       - "8081:8080"
     environment:
-      - ESPORT_GATEWAY_HOST=8080
-      - ESPORT_PLAYER_SERVICE_URL=http://player-service:8080
-      - ESPORT_ORGANIZATION_SERVICE_URL=http://organization-service:8080
+      GATEWAY_HOST: "gateway:8080"
+      PLAYER_SERVICE_APPNAME: esport-players-service
+      ORGANIZATION_SERVICE_APPNAME: esport-organizations-service
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: "http://eureka-service:8080/eureka"
+      EUREKA_INSTANCE_INSTANCE_ID: "1"
     depends_on:
-      - player-service
-      - organization-service
+      - eureka-service
+      - player-service-1
+      - player-service-2
+      - organization-service-1
+      - organization-service-2
       
   frontend-ng:
     build: 

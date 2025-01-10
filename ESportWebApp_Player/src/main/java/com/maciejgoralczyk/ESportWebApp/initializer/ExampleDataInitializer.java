@@ -5,14 +5,16 @@ import com.maciejgoralczyk.ESportWebApp.model.Player;
 import com.maciejgoralczyk.ESportWebApp.service.impl.OrganizationDefaultService;
 import com.maciejgoralczyk.ESportWebApp.service.impl.PlayerDefaultService;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 @Component
-@Order(1)
+@Order(2)
 public class ExampleDataInitializer
 {
     private final PlayerDefaultService playerService;
@@ -25,8 +27,7 @@ public class ExampleDataInitializer
     }
 
     @PostConstruct
-    public void init()
-    {
+    public void init() {
         List<Player> players = new ArrayList<>();
         List<Organization> organizations = new ArrayList<>();
 
@@ -84,5 +85,4 @@ public class ExampleDataInitializer
             playerService.create(player);
         }
     }
-
 }
