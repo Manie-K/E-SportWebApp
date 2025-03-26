@@ -1,6 +1,10 @@
 "# E-SportWebApp" 
 
-Project for Internet Service Architecture course.
+## INFO
+This project was made for Internet Service Architecture course at university.
+
+Backend -> Spring Boot
+Frontend -> Angular
 
 # How to Run the Project
 
