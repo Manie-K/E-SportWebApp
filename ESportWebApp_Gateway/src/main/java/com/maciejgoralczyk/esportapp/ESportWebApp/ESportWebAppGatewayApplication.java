@@ -36,8 +36,8 @@ public class ESportWebAppGatewayApplication {
 						.uri("lb://" + playersServiceName))
 				.route("organization-service", r -> r
 						.path("/api/organizations/**")
-						//.uri("lb://" + organizationsServiceName))
-						.uri("http://organization-service-1:8080/api/organizations"))
+						.uri("lb://" + organizationsServiceName))
+						//.uri("http://organization-service-1:8080/api/organizations"))
 				.build();
 	}
 /*
