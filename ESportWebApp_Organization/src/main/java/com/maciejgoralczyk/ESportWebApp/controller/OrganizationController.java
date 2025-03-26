@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 
+import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.List;
@@ -26,6 +27,7 @@ public class OrganizationController {
     private final RestTemplate restTemplate;
     private final LoadBalancerClient loadBalancerClient;
 
+    private static Logger logger = Logger.getLogger(OrganizationController.class.getName());
     public OrganizationController(OrganizationService organizationService, RestTemplate restTemplate,
                                   DiscoveryClient discoveryClient, LoadBalancerClient loadBalancerClient) {
         this.organizationService = organizationService;
@@ -88,6 +90,7 @@ public class OrganizationController {
     @GetMapping
     public ResponseEntity<GetOrganizationsResponseDto> getOrganizations()
     {
+        logger.info("getOrganizations called");
         List<Organization> organizations = organizationService.findAll();
         return ResponseEntity.ok(GetOrganizationsResponseDto.builder()
                 .organizations(organizations.stream()
