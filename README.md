@@ -3,7 +3,7 @@
 ## INFO
 This project was made for Internet Service Architecture course at university.
 
-Backend -> Spring Boot
+Backend -> Spring Boot  
 Frontend -> Angular
 
 # How to Run the Project
