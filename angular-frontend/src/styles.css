@@ -32,6 +32,8 @@ form {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  horiz-align: center;
+  align-items: center;
 }
 
 label {
@@ -52,7 +54,7 @@ select {
 }
 
 button {
-  margin: 15px auto 0px auto;
+  margin: 15px 10px 0px 10px;
   max-width: 400px;
   padding: 12px;
   border: none;

@@ -10,6 +10,8 @@ services:
   player-db:
     image: postgres:16.1
     restart: always
+    volumes:
+      - player_db_data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: player_db
       POSTGRES_USER: root
@@ -18,6 +20,8 @@ services:
   organization-db:
     image: postgres:16.1
     restart: always
+    volumes:
+      - organization_db_data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: organization_db
       POSTGRES_USER: root
@@ -124,3 +128,6 @@ services:
       API_URL: http://gateway:8080/api
     ports:
       - "8085:80"
+volumes:
+  player_db_data:
+  organization_db_data:
