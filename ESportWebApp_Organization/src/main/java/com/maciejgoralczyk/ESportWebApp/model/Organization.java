@@ -9,7 +9,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "organization")
+@Table(name = "organizations")
 public class Organization{
     @Id
     @Builder.Default
