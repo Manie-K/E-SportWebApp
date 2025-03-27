@@ -21,9 +21,9 @@ Ensure you have the following installed:
 
    build.bat
 
-2. *Start the services using Docker Compose*
+2. *Start the services*
 
-   docker compose up -d
+   run.bat
 
 
 ## Default Ports

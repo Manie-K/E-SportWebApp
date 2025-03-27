@@ -1,35 +1,10 @@
-div {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-}
 
-h1 {
-  text-align: center;
-  color: #333;
-}
-
-h2 {
-  color: #555;
-}
-
-p {
-  color: #777;
-}
-
-button {
-  margin-top: 10px;
-  padding: 10px;
-  border: none;
-  border-radius: 3px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
+.wrongInputDiv {
+  margin: 10px auto;
+  padding: 25px;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  background-color: #e5e9e5;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  color: #ee3030;
 }

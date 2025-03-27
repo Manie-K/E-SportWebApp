@@ -90,7 +90,6 @@ public class OrganizationController {
     @GetMapping
     public ResponseEntity<GetOrganizationsResponseDto> getOrganizations()
     {
-        logger.info("getOrganizations called");
         List<Organization> organizations = organizationService.findAll();
         return ResponseEntity.ok(GetOrganizationsResponseDto.builder()
                 .organizations(organizations.stream()

@@ -4,7 +4,8 @@
     <div>
       <label for="name">Organization name:</label>
       <input id="name" type="text" formControlName="name"/>
-      <div *ngIf="organizationForm.get('name')?.invalid && organizationForm.get('name')?.touched">
+      <div *ngIf="organizationForm.get('name')?.invalid && organizationForm.get('name')?.touched"
+           class="wrongInputDiv">
         Name is invalid.
       </div>
     </div>
@@ -13,7 +14,8 @@
       <label for="foundationYear">Foundation year:</label>
       <input id="foundationYear" type="number" formControlName="foundationYear"/>
       <div *ngIf="organizationForm.get('foundationYear')?.invalid &&
-      organizationForm.get('foundationYear')?.touched">
+      organizationForm.get('foundationYear')?.touched"
+           class="wrongInputDiv">
         Foundation year is invalid.
       </div>
     </div>
