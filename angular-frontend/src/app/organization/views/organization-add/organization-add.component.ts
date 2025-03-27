@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {NgIf} from '@angular/common';
 import {OrganizationService} from '../../services/organization.service';
 import {RouterLink} from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-organization-add',
@@ -17,7 +18,7 @@ import {RouterLink} from '@angular/router';
 export class OrganizationAddComponent {
   organizationForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private organizationService: OrganizationService) {
+  constructor(private fb: FormBuilder, private organizationService: OrganizationService, private router: Router) {
     this.organizationForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       foundationYear: [null, [Validators.required,
@@ -27,8 +28,9 @@ export class OrganizationAddComponent {
 
   onSubmit(): void {
     if (this.organizationForm.valid) {
-      console.log('Organization form sent', this.organizationForm.value);
       this.organizationService.addOrganization(this.organizationForm.value);
+      console.log('Organization form sent', this.organizationForm.value);
+      this.router.navigate(['/organizations']);
     } else {
       console.log('Form is invalid');
     }

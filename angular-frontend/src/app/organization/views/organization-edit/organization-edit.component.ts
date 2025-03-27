@@ -3,6 +3,7 @@ import {PutOrganizationDto} from '../../models/put-organization.dto';
 import {OrganizationService} from '../../services/organization.service';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {FormsModule} from '@angular/forms';
+import {Router} from '@angular/router';
 import {NgIf} from '@angular/common';
 
 @Component({
@@ -18,7 +19,7 @@ export class OrganizationEditComponent implements OnInit {
   uuid: string | undefined;
   org: PutOrganizationDto | undefined;
 
-  constructor(private organizationService: OrganizationService, private route: ActivatedRoute) {
+  constructor(private organizationService: OrganizationService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -40,6 +41,7 @@ export class OrganizationEditComponent implements OnInit {
     this.organizationService.updateOrganization(this.uuid!, this.org!).subscribe({
       next: (response) => {
         console.log('Organization updated', response);
+        this.router.navigate(['/organizations']);
       },
       error: (err) => {
         console.error('Error updating organization', err);

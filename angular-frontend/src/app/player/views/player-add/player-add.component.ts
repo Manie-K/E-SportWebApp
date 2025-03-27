@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {OrganizationService} from '../../../organization/services/organization.service';
 import {PlayerService} from '../../services/player.service';
 import {NgIf} from '@angular/common';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-player-add',
@@ -18,7 +18,7 @@ import {ActivatedRoute, RouterLink} from '@angular/router';
 export class PlayerAddComponent {
   playerForm: FormGroup | undefined;
   orgId: string | undefined;
-  constructor(private fb: FormBuilder, private playerService: PlayerService, private route: ActivatedRoute) {
+  constructor(private fb: FormBuilder, private playerService: PlayerService, private route: ActivatedRoute, private router: Router) {
     this.route.params.subscribe(params => {
       this.orgId = params['orgId'];
       this.playerForm = this.fb.group({
@@ -32,6 +32,7 @@ export class PlayerAddComponent {
   onSubmit(): void {
     if (this.playerForm!.valid) {
       this.playerService.addPlayer(this.playerForm!.value);
+      this.router.navigate(['/organizations/{orgId}']);
     } else {
       console.log('Form is invalid');
     }

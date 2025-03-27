@@ -1,14 +1,17 @@
 <div class="organization-details">
   <h2>Organization id: {{ org?.id }}</h2>
-  <h2>Organization name: {{ org?.name }}</h2>
+  <h2>Organization name: <span style="color: #000000;">{{ org?.name }}</span></h2>
   <p><strong>Foundation Year:</strong> {{ org?.foundationYear }}</p>
 
   <h3>Roster:</h3>
   <ul>
-    <li *ngFor="let player of org?.roster"><h4>{{ player.name }}</h4>
-      <button (click)="deletePlayer(player.id)">Remove</button>
-      <button [routerLink]="['players',player.id, 'edit']">Edit</button>
-      <button [routerLink]="['players',player.id]">View details</button>
+    <li *ngFor="let player of org?.roster" class="playerListElement">
+      <h4>{{ player.name }}</h4>
+      <span class="playerBtnsSpan">
+        <button class="playerBtn" (click)="deletePlayer(player.id)">Remove</button>
+        <button class="playerBtn" [routerLink]="['players',player.id, 'edit']">Edit</button>
+        <button class="playerBtn" [routerLink]="['players',player.id]">View details</button>
+      </span>
     </li>
   </ul>
   <button routerLink="players/add">Add player</button>

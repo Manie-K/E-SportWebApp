@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PutOrganizationDto} from '../../../organization/models/put-organization.dto';
 import {OrganizationService} from '../../../organization/services/organization.service';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {PutPlayerDto} from '../../models/put-player-dto.model';
 import {PlayerService} from '../../services/player.service';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -21,7 +21,7 @@ export class PlayerEditComponent implements OnInit {
   organizationId: string | undefined;
   player: PutPlayerDto | undefined;
 
-  constructor(private playerService: PlayerService, private route: ActivatedRoute) {}
+  constructor(private playerService: PlayerService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -43,6 +43,7 @@ export class PlayerEditComponent implements OnInit {
     this.playerService.updatePlayer(this.playerId!, this.player!).subscribe({
       next: (response) => {
         console.log('Player updated', response);
+        this.router.navigate(['/organizations/{organizationId}']);
       },
       error: (err) => {
         console.error('Error updating player', err);

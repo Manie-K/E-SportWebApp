@@ -1,0 +1,33 @@
+.playerBtn{
+  margin: 0 0 0 10px;
+  max-width: 300px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  /*background-color: #007bff;*/
+  background-color: #33eeaa;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.playerListElement{
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-around;
+  vertical-align: center;
+  width: 100%;
+}
+
+.playerBtnsSpan{
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+  width: 65%;
+}

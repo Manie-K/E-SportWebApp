@@ -21,12 +21,12 @@
       <input id="orgId" type="text" [(ngModel)]="organizationId" readonly="readonly" name="orgId"
              value="{{organizationId}}"/>
     </div>
-    <button [routerLink]="['/organizations', organizationId]">
-      Go back to organization details.
-    </button>
-
+    
     <button type="submit">
       Update player.
+    </button>
+    <button [routerLink]="['/organizations', organizationId]">
+      Go back to organization details.
     </button>
   </form>
 </div>
