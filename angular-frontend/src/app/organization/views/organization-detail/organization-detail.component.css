@@ -31,3 +31,10 @@
   align-items: center;
   width: 65%;
 }
+
+.form-buttons{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

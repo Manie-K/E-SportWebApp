@@ -43,7 +43,7 @@ export class PlayerEditComponent implements OnInit {
     this.playerService.updatePlayer(this.playerId!, this.player!).subscribe({
       next: (response) => {
         console.log('Player updated', response);
-        this.router.navigate(['/organizations/{organizationId}']);
+        this.router.navigate([`/organizations/${this.organizationId}`]);
       },
       error: (err) => {
         console.error('Error updating player', err);

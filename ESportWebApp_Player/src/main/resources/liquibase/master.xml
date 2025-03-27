@@ -3,8 +3,8 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <include file="classpath:liquibase/changelog/002_organizations.xml"
+    <include file="classpath:liquibase/changelog/001_organizations.xml"
              relativeToChangelogFile="false"/>
-    <include file="classpath:liquibase/changelog/001_players.xml"
+    <include file="classpath:liquibase/changelog/002_players.xml"
              relativeToChangelogFile="false"/>
 </databaseChangeLog>

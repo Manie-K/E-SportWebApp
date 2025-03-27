@@ -32,7 +32,7 @@ export class PlayerAddComponent {
   onSubmit(): void {
     if (this.playerForm!.valid) {
       this.playerService.addPlayer(this.playerForm!.value);
-      this.router.navigate(['/organizations/{orgId}']);
+      this.router.navigate([`/organizations/${this.orgId}`]);
     } else {
       console.log('Form is invalid');
     }
